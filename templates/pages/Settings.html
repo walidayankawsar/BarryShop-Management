@@ -49,12 +49,12 @@
                     </div>
                     <ul class="profile-menu">
                         <li>
-                            <a href="#">
+                            <a href="{% url 'profile' %}">
                                 <i class="fas fa-user"></i> My Profile
                             </a>
                         </li>
                         <li>
-                            <a href="Settings.html">
+                            <a href="{% url 'settings' %}">
                                 <i class="fas fa-cog"></i> Settings
                             </a>
                         </li>
@@ -80,7 +80,7 @@
         <aside class="sidebar">
             <ul class="sidebar-menu">
                 <li>
-                    <a href="{% url 'home' %}" class="active">
+                    <a href="{% url 'home' %}">
                         <i class="fas fa-tachometer-alt menu-icon"></i>
                         <span class="menu-text">Dashboard</span>
                     </a>
@@ -124,7 +124,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'settings' %}">
+                    <a href="{% url 'settings' %}" class="active">
                         <i class="fas fa-chart-line menu-icon"></i>
                         <span class="menu-text">Settings</span>
                     </a>
@@ -163,6 +163,11 @@
                         <li>
                             <a href="#" class="settings-link" data-section="barcode">
                                 <i class="fas fa-barcode"></i> Barcode Settings
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'profile' %}">
+                                <i class="fas fa-user"></i> My Profile
                             </a>
                         </li>
                     </ul>
