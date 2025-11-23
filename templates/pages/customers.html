@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static 'css/customers.css' %}">
     <link rel="stylesheet" href="{% static 'css/categories.css' %}">
     <link rel="stylesheet" href="{% static 'css/barcode_manager.css' %}">
+    <link rel="stylesheet" href="{% static 'css/filter.css' %}">
 </head>
 <body>
     <!-- Main Header -->
@@ -54,7 +55,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="pages/Settings.html">
+                            <a href="{% url 'settings' %}">
                                 <i class="fas fa-cog"></i> Settings
                             </a>
                         </li>
@@ -80,7 +81,7 @@
         <aside class="sidebar">
             <ul class="sidebar-menu">
                 <li>
-                    <a href="{% url 'home' %}" class="active">
+                    <a href="{% url 'home' %}">
                         <i class="fas fa-tachometer-alt menu-icon"></i>
                         <span class="menu-text">Dashboard</span>
                     </a>
@@ -118,7 +119,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'customer' %}">
+                    <a href="{% url 'customer' %}" class="active">
                         <i class="fas fa-users menu-icon"></i>
                         <span class="menu-text">Customers</span>
                     </a>
@@ -155,10 +156,56 @@
                         <i class="fas fa-search"></i>
                         <input type="text" placeholder="Search customers...">
                     </div>
-                    <button class="filter-btn">
+                    <a href="#filter-popup" class="filter-btn" style="text-decoration: none;">
                         <i class="fas fa-filter"></i> Filters
-                    </button>
+                    </a>
                 </div>
+
+
+                <!-- Filter Popup -->
+                <div id="filter-popup" class="popup-overlay">
+                    <div class="popup-content">
+                        <div class="popup-header">
+                            <h2 class="popup-title">Filter Products</h2>
+                            <p class="popup-subtitle">Select filters to narrow down your products</p>
+                            <a href="#" class="close-btn" style="text-decoration: none;">&times;</a>
+                        </div>
+            
+                        <div class="filter-list">
+                            <!-- Category Filter -->
+                            <div class="filter-group">
+                                <label class="filter-label">Categories <span class="filter-count">6</span></label>
+                                <div class="checkbox-list">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat-electronics" checked>
+                                        <label for="cat-electronics">Premium Membership</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat-clothing" checked>
+                                        <label for="cat-clothing">Golden Membership</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat-home">
+                                        <label for="cat-home">Silver Membership</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat-sports">
+                                        <label for="cat-sports">New Member</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat-books">
+                                        <label for="cat-books">Special Member</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="filter-actions">
+                            <button class="apply-btn">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+
         
                 <table class="customers-table">
                     <thead>
