@@ -9,6 +9,7 @@ urlpatterns = [
     path('terms/', views.terms, name='terms'),
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
+    path('profile/', views.profile, name='profile'),
     path('priceing/', views.priceing, name='priceing'),
 
     path('home/', views.home, name='home'),
@@ -19,4 +20,5 @@ urlpatterns = [
     path('customers', views.customers, name='customer'),
     path('categories/', views.categories, name='categories'),
     path('barcode/', views.barcode, name='barcode'),
+    path('logout/', views.user_logout, name='logout'),
 ]
