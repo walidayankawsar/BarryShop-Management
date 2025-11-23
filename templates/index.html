@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static 'css/customers.css' %}">
     <link rel="stylesheet" href="{% static 'css/categories.css' %}">
     <link rel="stylesheet" href="{% static 'css/barcode_manager.css' %}">
+    <link rel="stylesheet" href="{% static 'css/filter.css' %}">
 </head>
 <body>
     <!-- Main Header -->
@@ -54,7 +55,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="pages/Settings.html">
+                            <a href="{% url 'settings' %}">
                                 <i class="fas fa-cog"></i> Settings
                             </a>
                         </li>
@@ -64,7 +65,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{% url 'logout' %}">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </li>
@@ -251,9 +252,77 @@
                         <i class="fas fa-boxes"></i> Product Inventory
                     </h2>
                     <div class="section-actions">
-                        <button class="btn btn-outline">
+                        <a href="#filter-popup" class="btn btn-outline" style="text-decoration: none;">
                             <i class="fas fa-filter"></i> Filter
-                        </button>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Filter Popup -->
+                <div id="filter-popup" class="popup-overlay">
+                    <div class="popup-content">
+                        <div class="popup-header">
+                            <h2 class="popup-title">Filter Products</h2>
+                            <p class="popup-subtitle">Select filters to narrow down your products</p>
+                            <a href="#" class="close-btn" style="text-decoration: none;">&times;</a>
+                        </div>
+            
+                        <div class="filter-list">
+                            <!-- Category Filter -->
+                            <div class="filter-group">
+                                <label class="filter-label">Categories <span class="filter-count">6</span></label>
+                                <div class="checkbox-list">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat-electronics" checked>
+                                        <label for="cat-electronics">Electronics</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat-clothing" checked>
+                                        <label for="cat-clothing">Clothing</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat-home">
+                                        <label for="cat-home">Home & Garden</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat-sports">
+                                        <label for="cat-sports">Sports</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat-books">
+                                        <label for="cat-books">Books</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="cat-beauty">
+                                        <label for="cat-beauty">Beauty</label>
+                                    </div>
+                                </div>
+                            </div>
+                
+                
+                            <!-- Stock Status -->
+                            <div class="filter-group">
+                                <label class="filter-label">Stock Status</label>
+                                <div class="checkbox-list">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="stock-instock" checked>
+                                        <label for="stock-instock">In Stock</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="stock-lowstock">
+                                        <label for="stock-lowstock">Low Stock</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="stock-outstock">
+                                        <label for="stock-outstock">Out of Stock</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="filter-actions">
+                            <button class="apply-btn">Apply Filters</button>
+                        </div>
                     </div>
                 </div>
                 
