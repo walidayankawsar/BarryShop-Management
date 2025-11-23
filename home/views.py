@@ -76,7 +76,7 @@ def Forget(request):
 
 
 def terms(request):
-    return render(request, 'Terms_and _conditions.html')
+    return render(request, 'Terms_and_conditions.html')
 
 def contact(request):
     return render(request, 'contact.html')
