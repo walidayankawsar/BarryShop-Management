@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.conf import settings
+from random import randint
+from . models import VerifiCode
 
 
 # Create your views here.
@@ -72,6 +74,17 @@ def message(request):
 
 
 def Forget(request):
+    if request.method=='POST':
+        email = request.POST.get('email')
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            messages.error(request, "f'NO User found{email}")
+            return render(request, 'authentication/BarryShop_forget1.html')
+        code = f"{randint(0,999999):06d:}"
+        VerifiCode.objects.create(user=user, code = code)
+
     return render(request, 'authentication/BarryShop_forget1.html')
 
 
