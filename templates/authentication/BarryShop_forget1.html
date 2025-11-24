@@ -377,18 +377,22 @@
 
             <!-- Step 1: Enter Email -->
             <div class="form-step" id="step1">
-                <div class="form-container">
-                    <p style="color: var(--secondary); margin-bottom: 20px; text-align: center;">
-                        Enter your email address and we'll send you a verification code to reset your password.
-                    </p>
+                <form method="POST" action="{% url 'forget' %}">
+                    {% csrf_token %}
+                    <div class="form-container">
+                        <p style="color: var(--secondary); margin-bottom: 20px; text-align: center;">
+                            Enter your email address and we'll send you a verification code to reset your password.
+                        </p>
                     
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" class="form-control" placeholder="Enter your registered email" required>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" name="email" class="form-control" placeholder="Enter your registered email" required>
+                        </div>
                     </div>
-                </div>
                 
-                <button class="btn" onclick="showStep(2)">Send Verification Code</button>
+                
+                    <button class="btn" type="submit">Send Verification Code</button>
+                </form>
                 
                 <div class="back-to-login">
                     <a href="{% url 'login' %}">← Back to Login</a>
