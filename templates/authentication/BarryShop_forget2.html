@@ -374,36 +374,34 @@
             </div>
 
 
-            <!-- Step 2: Verify Code -->
-            <div class="form-step" id="step2">
+            <form method="POST">
+            {% csrf_token %}
+
                 <div class="form-container">
                     <p style="color: var(--secondary); margin-bottom: 20px; text-align: center;">
                         We've sent a 6-digit verification code to your email. Please enter it below.
                     </p>
-                    
-                    <div class="verification-code">
-                        <input type="text" class="code-input" maxlength="1" required>
-                        <input type="text" class="code-input" maxlength="1" required>
-                        <input type="text" class="code-input" maxlength="1" required>
-                        <input type="text" class="code-input" maxlength="1" required>
-                        <input type="text" class="code-input" maxlength="1" required>
-                        <input type="text" class="code-input" maxlength="1" required>
-                    </div>
-                    
+
+                    <input 
+                        type="text" 
+                        name="code" 
+                        maxlength="6" 
+                        pattern="[0-9]{6}" 
+                        placeholder="Enter 6-digit code" 
+                        required
+                        style="width: 100%; text-align: center; font-size: 25px; padding: 10px; letter-spacing: 10px;"
+                    >
+
                     <div class="resend-link">
                         Didn't receive the code? <a href="#">Resend Code</a>
                     </div>
                 </div>
-                
-                <button class="btn" onclick="showStep(3)">Verify Code</button>
-                
-                <div class="back-to-login">
-                    <a href="{% url 'forget' %}">← Back to Email Entry</a>
-                </div>
-            </div>
 
+                <button type="submit" class="btn">Verify Code</button>
+            </form>
         </div>
     </div>
+
 
 
 </body>
