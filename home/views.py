@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -81,20 +81,58 @@ def Forget(request):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            messages.error(request, "f'NO User found{email}")
-            return render(request, 'authentication/BarryShop_forget1.html')
+            messages.error(request, f'NO User found email {email}')
+            return redirect('forget')
         code = f"{randint(0,999999):06d}"
         VerifiCode.objects.create(user=user, code = code)
+        
+
+        email = request.session.get('email')
+
 
         send_mail(
-            "Your code",
-            f"Verification code for your account is { code }",
+            "Your verification code",
+            f"Code : { code } \n Verification code for your account. It's valid for one minute.",
             None,
             [email]
         )
-        return render(request, 'authentication/BarryShop_forget2.html')
+        return redirect('verifacation')
 
     return render(request, 'authentication/BarryShop_forget1.html')
+
+def verifacation(request):
+
+    email = request.session.get('email')
+    if not email:
+        messages.error(request, "Session expired. Please try again.")
+        return redirect('forget')
+    
+    user = get_object_or_404(User, email=email)
+    
+    if request.method == 'POST':
+        code_input = request.POST.get('code')
+
+        try:
+            vc = VerifiCode.objects.filter(user=user, used=False).latest('created_at')
+        except VerifiCode.DoesNotExist:
+            messages.error(request, 'Invalid or expired code.')
+            return render(request, 'forget')
+        
+        if vc.code == code_input and not vc.is_expired():
+            vc.used = True
+            vc.save()
+
+            messages.success(request, "Code Verified successful")
+            return redirect('new_pass')
+
+
+
+
+
+    return render(request, 'authentication/BarryShop_forget2.html')
+
+def new_pass(request):
+    return render(request, 'authentication/BarryShop_forget3.html')
 
 
 def terms(request):
