@@ -105,7 +105,7 @@ def verifacation(request):
     email = request.session.get('email')
     if not email:
         messages.error(request, "Session expired. Please try again.")
-        return redirect('forget')
+        return redirect('login')
     
     user = get_object_or_404(User, email=email)
     
@@ -124,12 +124,12 @@ def verifacation(request):
 
             messages.success(request, "Code Verified successful")
             return redirect('new_pass')
-
-
-
-
+        else:
+            messages.error(request, 'Incorrect or expired code')
+            return redirect('forget')
 
     return render(request, 'authentication/BarryShop_forget2.html')
+
 
 def new_pass(request):
     return render(request, 'authentication/BarryShop_forget3.html')
