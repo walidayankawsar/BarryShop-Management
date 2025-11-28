@@ -354,6 +354,11 @@
             </div>
             <h1>Reset Your Password</h1>
             <p>Follow the steps to recover your account</p>
+            {% if messages %}
+                {% for message in messages %}
+                    <h5 style= "color: red;">{{ message }}</h5>
+                {% endfor %}
+            {% endif %}
         </div>
 
         <div class="forgot-content">
@@ -376,23 +381,26 @@
 
             <!-- Step 3: New Password -->
             <div class="form-step hidden" id="step3">
-                <div class="form-container">
-                    <p style="color: var(--secondary); margin-bottom: 20px; text-align: center;">
-                        Create a new password for your BarryShop account.
-                    </p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-container">
+                        <p style="color: var(--secondary); margin-bottom: 20px; text-align: center;">
+                            Create a new password for your BarryShop account.
+                        </p>
                     
-                    <div class="form-group">
-                        <label for="newPassword">New Password</label>
-                        <input type="password" id="newPassword" class="form-control" placeholder="Enter new password" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" name="newPassword" class="form-control" placeholder="Enter new password" required>
+                        </div>
                     
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirm New Password</label>
-                        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm new password" required>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm new password" required>
+                        </div>
                     </div>
-                </div>
                 
-                <button class="btn" onclick="showSuccess()">Reset Password</button>
+                    <button type="submit" class="btn">Reset Password</button>
+                </form>
                 
                 <div class="back-to-login">
                     <a href="{% url 'verifacation' %}">← Back to Verification</a>
