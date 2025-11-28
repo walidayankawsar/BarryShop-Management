@@ -77,6 +77,8 @@ def message(request):
 def Forget(request):
     if request.method=='POST':
         email = request.POST.get('email')
+        request.session['email'] = email
+
 
         try:
             user = User.objects.get(email=email)
@@ -85,9 +87,6 @@ def Forget(request):
             return redirect('forget')
         code = f"{randint(0,999999):06d}"
         VerifiCode.objects.create(user=user, code = code)
-        
-
-        email = request.session.get('email')
 
 
         send_mail(
@@ -132,6 +131,27 @@ def verifacation(request):
 
 
 def new_pass(request):
+    email = request.session.get('email')
+    if not email:
+        messages.error(request, "Session expired. Try again.")
+        return redirect('login')
+    
+    user = User.objects.get(email=email)
+
+    if request.method == 'POST':
+        password = request.POST.get('newPassword')
+        confirm_password = request.POST.get('confirmPassword')
+
+        if password != confirm_password:
+            messages.error(request, 'Passwords do not Match..!')
+            return redirect('new_pass')
+        user.set_password(password)
+        user.save()
+        messages.error(request, 'Password changed successfully..!')
+        del request.session['email']
+        return redirect('messages')
+
+
     return render(request, 'authentication/BarryShop_forget3.html')
 
 
