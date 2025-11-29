@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.conf import settings
 from random import randint
-from . models import VerifiCode
+from . models import VerifiCode, Employee
 from django.core.mail import send_mail
 
 
