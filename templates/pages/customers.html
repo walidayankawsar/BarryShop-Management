@@ -65,7 +65,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{% url 'logout' %}">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </li>
@@ -166,34 +166,34 @@
                 <div id="filter-popup" class="popup-overlay">
                     <div class="popup-content">
                         <div class="popup-header">
-                            <h2 class="popup-title">Filter Products</h2>
-                            <p class="popup-subtitle">Select filters to narrow down your products</p>
+                            <h2 class="popup-title">Filter Customers</h2>
+                            <p class="popup-subtitle">Select filters to narrow down customers</p>
                             <a href="#" class="close-btn" style="text-decoration: none;">&times;</a>
                         </div>
             
                         <div class="filter-list">
                             <!-- Category Filter -->
                             <div class="filter-group">
-                                <label class="filter-label">Categories <span class="filter-count">6</span></label>
+                                <label class="filter-label">Customers <span class="filter-count">5</span></label>
                                 <div class="checkbox-list">
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="cat-electronics" checked>
+                                        <input type="radio" name="category" id="cat-electronics">
                                         <label for="cat-electronics">Premium Membership</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="cat-clothing" checked>
+                                        <input type="radio" name="category" id="cat-clothing">
                                         <label for="cat-clothing">Golden Membership</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="cat-home">
+                                        <input type="radio" name="category" id="cat-home">
                                         <label for="cat-home">Silver Membership</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="cat-sports">
+                                        <input type="radio" name="category" id="cat-sports">
                                         <label for="cat-sports">New Member</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="cat-books">
+                                        <input type="radio" name="category" id="cat-books">
                                         <label for="cat-books">Special Member</label>
                                     </div>
                                 </div>
