@@ -37,15 +37,15 @@
             
             <div class="user-profile" id="userProfile">
                 <div class="user-avatar">BM</div>
-                <span>Barry M.</span>
+                <span>{{user.first_name}}</span>
                 <i class="fas fa-chevron-down"></i>
                 
                 <!-- Profile Dropdown -->
                 <div class="profile-dropdown" id="profileDropdown">
                     <div class="profile-header">
                         <div class="profile-avatar">BM</div>
-                        <h3 class="profile-name">Barry M.</h3>
-                        <p class="profile-email">barry@barryshop.com</p>
+                        <h3 class="profile-name">{{ user.get_full_name }}</h3>
+                        <p class="profile-email">{{ user.username }}</p>
                     </div>
                     <ul class="profile-menu">
                         <li>
@@ -64,7 +64,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{% url 'logout' %}">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </li>
