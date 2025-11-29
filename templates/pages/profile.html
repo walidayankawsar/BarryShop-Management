@@ -504,6 +504,7 @@
                 grid-template-columns: 1fr;
             }
         }
+
     </style>
 
 
@@ -616,7 +617,9 @@
                     </div>
                     
                     <div class="profile-info">
-                        <div class="avatar">B</div>
+                        <div class="avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
                         <div class="user-details">
                             <h3>{{ user.get_full_name }}</h3>
                             <p>{{ user.username }}</p>
@@ -650,11 +653,12 @@
                             <label>Phone Number</label>
                             <div class="editable-field">{{ user.email }}</div>
                         </div>
-                        
+
                         <div class="form-group">
-                            <label>Company</label>
-                            <div class="editable-field">BarryShop Inc.</div>
+                            <label>Profile Picture</label>
+                            <div class="editable-field">Barryshop.jpg</div>
                         </div>
+                        
                         
                         <div class="form-group">
                             <label>Position</label>
@@ -672,34 +676,45 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="firstName">First Name</label>
-                                    <input type="text" id="firstName" class="form-control" value="Barry" style="background: white; color: #333;">
+                                    <input type="text" id="firstName" class="form-control" value="{{ user.first_name }}" style="background: white; color: #333;">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="lastName">Last Name</label>
-                                    <input type="text" id="lastName" class="form-control" value="M." style="background: white; color: #333;">
+                                    <input type="text" id="lastName" class="form-control" value="{{ user.last_name }}" style="background: white; color: #333;">
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="email">Email Address</label>
-                                <input type="email" id="email" class="form-control" value="Barry@barryshop.com" style="background: white; color: #333;">
+                                <input type="email" id="email" class="form-control" value="{{ user.username }}" style="background: white; color: #333;">
                             </div>
                             
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" class="form-control" value="+1 (555) 123-4567" style="background: white; color: #333;">
+                                <input type="tel" id="phone" class="form-control" value="{{user.email}}" style="background: white; color: #333;">
                             </div>
                             
                             <div class="form-group">
-                                <label for="company">Company</label>
-                                <input type="text" id="company" class="form-control" value="BarryShop Inc." style="background: white; color: #333;">
+                                <label for="profile_picture">Profile Picture</label>
+                                <input type="file" id="profile_picture" name="profile_picture" class="form-control" accept="image/*">
                             </div>
+
+
                             
                             <div class="form-group">
                                 <label for="position">Position</label>
-                                <input type="text" id="position" class="form-control" value="Founder & CEO" style="background: white; color: #333;">
+                                <select id="position" class="form-control" style="background: white; color: #333;">
+                                    <option value="Founder & CEO" selected>Founder & CEO</option>
+                                    <option value="Co-Founder">Co-Founder</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="Supervisor">Supervisor</option>
+                                    <option value="Employee">Employee</option>
+                                    <option value="Intern">Intern</option>
+                                    <option value="Administrator">Administrator</option>
+                                </select>
                             </div>
+
                             
                             <div class="btn-group">
                                 <a href="#" class="cancel-btn">Cancel</a>
