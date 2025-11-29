@@ -38,19 +38,19 @@
             
             <div class="user-profile" id="userProfile">
                 <div class="user-avatar">BM</div>
-                <span>Barry M.</span>
+                <span>{{ user.first_name }}</span>
                 <i class="fas fa-chevron-down"></i>
                 
                 <!-- Profile Dropdown -->
                 <div class="profile-dropdown" id="profileDropdown">
                     <div class="profile-header">
                         <div class="profile-avatar">BM</div>
-                        <h3 class="profile-name">Barry M.</h3>
-                        <p class="profile-email">barry@barryshop.com</p>
+                        <h3 class="profile-name">{{ user.get_full_name }}</h3>
+                        <p class="profile-email">{{ user.username }}</p>
                     </div>
                     <ul class="profile-menu">
                         <li>
-                            <a href="#">
+                            <a href="{% url 'profile' %}">
                                 <i class="fas fa-user"></i> My Profile
                             </a>
                         </li>
@@ -270,31 +270,35 @@
                         <div class="filter-list">
                             <!-- Category Filter -->
                             <div class="filter-group">
-                                <label class="filter-label">Categories <span class="filter-count">6</span></label>
+                                <label class="filter-label">Categories <span class="filter-count">7</span></label>
                                 <div class="checkbox-list">
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="cat-electronics" checked>
+                                        <input type="radio" name="category" id="cat-electronics">
                                         <label for="cat-electronics">Electronics</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="cat-clothing" checked>
+                                        <input type="radio" name="category" id="cat-clothing">
                                         <label for="cat-clothing">Clothing</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="cat-home">
+                                        <input type="radio" name="category" id="cat-home">
                                         <label for="cat-home">Home & Garden</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="cat-sports">
-                                        <label for="cat-sports">Sports</label>
+                                        <input type="radio" name="category" id="cat-sports">
+                                        <label for="cat-sports">Fitness</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="cat-books">
-                                        <label for="cat-books">Books</label>
+                                        <input type="radio" name="category" id="cat-books">
+                                        <label for="cat-books">Groceries</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="cat-beauty">
-                                        <label for="cat-beauty">Beauty</label>
+                                        <input type="radio" name="category" id="cat-beauty">
+                                        <label for="cat-beauty">Stationery</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="radio" name="category" id="cat-unknown">
+                                        <label for="cat-unknown">Unknown</label>
                                     </div>
                                 </div>
                             </div>
@@ -305,15 +309,15 @@
                                 <label class="filter-label">Stock Status</label>
                                 <div class="checkbox-list">
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="stock-instock" checked>
+                                        <input type="radio" name="category" id="stock-instock">
                                         <label for="stock-instock">In Stock</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="stock-lowstock">
+                                        <input type="radio" name="category" id="stock-lowstock">
                                         <label for="stock-lowstock">Low Stock</label>
                                     </div>
                                     <div class="checkbox-item">
-                                        <input type="checkbox" id="stock-outstock">
+                                        <input type="radio" name="category" id="stock-outstock">
                                         <label for="stock-outstock">Out of Stock</label>
                                     </div>
                                 </div>
@@ -506,16 +510,17 @@
                                 <option value="electronics">Electronics</option>
                                 <option value="clothing">Clothing</option>
                                 <option value="groceries">Groceries</option>
-                                <option value="home">Home & Kitchen</option>
+                                <option value="home">Home & Garden</option>
                                 <option value="fitness">Fitness</option>
                                 <option value="stationery">Stationery</option>
+                                <option value="stationery">Unknown</option>
                             </select>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="productPrice" class="form-label">Price ($)</label>
+                            <label for="productPrice" class="form-label">Price</label>
                             <input type="number" id="productPrice" class="form-control" step="0.01" required>
                         </div>
                         
@@ -528,7 +533,7 @@
                     <div class="form-group">
                         <label for="productBarcode" class="form-label">Barcode</label>
                         <div class="barcode-input-container">
-                            <i class="fas fa-barcode barcode-icon"></i>
+                            <i></i>
                             <input type="text" id="productBarcode" class="form-control" placeholder="Scan or enter barcode" required>
                         </div>
                     </div>
@@ -541,10 +546,10 @@
                         </button>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="productDescription" class="form-label">Description</label>
+                    <!--<div class="form-group">
+                        <label for="productDescription" class="form-label">Description (Optional)</label>
                         <textarea id="productDescription" class="form-control" rows="3"></textarea>
-                    </div>
+                    </div>-->
                     
                     <div class="form-group">
                         <label for="productImage" class="form-label">Product Image</label>
