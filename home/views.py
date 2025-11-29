@@ -34,18 +34,19 @@ def RegisterView(request):
         first_name = request.POST.get('firstName')
         last_name = request.POST.get('lastName')
         phone = request.POST.get('phone')
-        username = request.POST.get('email')
+        email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirmPassword')
 
         user_has_error = False
 
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(username=phone).exists():
+            user_has_error = True
+            messages.error(request, "Phone Number are exists")
+            
+        if User.objects.filter(email=email).exists():
             user_has_error = True
             messages.error(request, "Email Address are exists")
-        if User.objects.filter(email=phone).exists():
-            user_has_error = True
-            messages.error(request, "phone Number are exists")
 
         if len(password) < 5:
             user_has_error = True
@@ -56,10 +57,10 @@ def RegisterView(request):
 
         if not user_has_error:
             new_user = User.objects.create_user(
-                username= username,
+                username= email,
                 first_name = first_name,
                 last_name = last_name,
-                email = username,
+                email = phone,
                 password = password
             )
             messages.success(request, 'Account created, LogIn Now...!')
