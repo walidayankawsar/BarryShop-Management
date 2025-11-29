@@ -36,14 +36,18 @@
             </div>
             
             <div class="user-profile" id="userProfile">
-                <div class="user-avatar">BM</div>
+                <div class="user-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
                 <span>{{ user.first_name }}</span>
                 <i class="fas fa-chevron-down"></i>
                 
                 <!-- Profile Dropdown -->
                 <div class="profile-dropdown" id="profileDropdown">
                     <div class="profile-header">
-                        <div class="profile-avatar">BM</div>
+                        <div class="profile-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
                         <h3 class="profile-name">{{ user.get_full_name }}</h3>
                         <p class="profile-email">{{user.get_full_name}}</p>
                     </div>
