@@ -375,6 +375,11 @@
             </div>
             <h1>Reset Your Password</h1>
             <p>Follow the steps to recover your account</p>
+            {% if messages %}
+                {% for message in messages %}
+                    <h4 style="color: red;">{{message}}</h4>
+                {% endfor %}
+            {% endif %}
         </div>
 
         <div class="forgot-content">
