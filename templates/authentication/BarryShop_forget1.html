@@ -356,6 +356,16 @@
             </div>
             <h1>Reset Your Password</h1>
             <p>Follow the steps to recover your account</p>
+            <div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <center>
+                            <h4 style="color: {% if message.tags == 'error' %}red{% else %}dodgerblue{% endif %}">
+                                {{ message }}
+                            </h4>
+                        </center>
+                    {% endfor %}
+                {%endif %}
         </div>
 
         <div class="forgot-content">
