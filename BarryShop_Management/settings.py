@@ -133,3 +133,7 @@ EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
 EMAIL_HOST_USER = "kawsaromg@gmail.com"
 EMAIL_HOST_PASSWORD = "bdcd eizj aqtu tier"
+
+
+
+AUTH_USER_MODEL = 'home.Employee'
