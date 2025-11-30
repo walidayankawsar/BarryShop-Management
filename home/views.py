@@ -17,7 +17,7 @@ def loginView(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        user = authenticate(request=request, username=email, password=password)
+        user = authenticate(request=request, email=email, password=password)
         if user is not None:
             login(request, user)
             return redirect('home')
@@ -33,6 +33,7 @@ def RegisterView(request):
     if request.method == 'POST':
         first_name = request.POST.get('firstName')
         last_name = request.POST.get('lastName')
+        username = request.POST.get('username')
         phone = request.POST.get('phone')
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -40,13 +41,17 @@ def RegisterView(request):
 
         user_has_error = False
 
-        if User.objects.filter(username=phone).exists():
+        if Employee.objects.filter(username=username).exists():
             user_has_error = True
-            messages.error(request, "Phone Number are exists")
+            messages.error(request, "Username are exists")
             
-        if User.objects.filter(email=email).exists():
+        if Employee.objects.filter(email=email).exists():
             user_has_error = True
             messages.error(request, "Email Address are exists")
+
+        if Employee.objects.filter(phone=phone).exists():
+            user_has_error = True
+            messages.error(request, "Phone number are exists")
 
         if len(password) < 5:
             user_has_error = True
@@ -56,12 +61,13 @@ def RegisterView(request):
             messages.error(request, "Password not match")
 
         if not user_has_error:
-            new_user = User.objects.create_user(
-                username= email,
+            new_user = Employee.objects.create_user(
+                username= username,
                 first_name = first_name,
                 last_name = last_name,
-                email = phone,
-                password = password
+                email = email,
+                password = password,
+                phone = phone
             )
             messages.success(request, 'Account created, LogIn Now...!')
             return redirect('messages')
@@ -82,8 +88,8 @@ def Forget(request):
 
 
         try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
+            user = Employee.objects.get(email=email)
+        except Employee.DoesNotExist:
             messages.error(request, f'NO User found email {email}')
             return redirect('forget')
         code = f"{randint(0,999999):06d}"
@@ -107,7 +113,7 @@ def verifacation(request):
         messages.error(request, "Session expired. Please try again.")
         return redirect('login')
     
-    user = get_object_or_404(User, email=email)
+    user = get_object_or_404(Employee, email=email)
     
     if request.method == 'POST':
         code_input = request.POST.get('code')
@@ -116,7 +122,7 @@ def verifacation(request):
             vc = VerifiCode.objects.filter(user=user, used=False).latest('created_at')
         except VerifiCode.DoesNotExist:
             messages.error(request, 'Invalid or expired code.')
-            return render(request, 'forget')
+            return redirect('forget')
         
         if vc.code == code_input and not vc.is_expired():
             vc.used = True
@@ -137,7 +143,7 @@ def new_pass(request):
         messages.error(request, "Session expired. Try again.")
         return redirect('login')
     
-    user = User.objects.get(email=email)
+    user = Employee.objects.get(email=email)
 
     if request.method == 'POST':
         password = request.POST.get('newPassword')
