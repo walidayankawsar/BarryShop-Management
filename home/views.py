@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.conf import settings
 from random import randint
-from . models import VerifiCode, Employee
+from . models import VerifiCode, Employee, Product
 from django.core.mail import send_mail
 
 
@@ -90,7 +90,7 @@ def Forget(request):
         try:
             user = Employee.objects.get(email=email)
         except Employee.DoesNotExist:
-            messages.error(request, f'NO User found email {email}')
+            messages.error(request, f'NO User found {email}')
             return redirect('forget')
         code = f"{randint(0,999999):06d}"
         VerifiCode.objects.create(user=user, code = code)
@@ -192,6 +192,34 @@ def user_logout(request):
 
 @login_required
 def home(request):
+
+    if request.method == "POST":
+        title = request.POST.get('title')
+        sku = request.POST.get('sku')
+        price = request.POST.get('price')
+        quantity = request.POST.get('quantity')
+        barcode = request.POST.get('barcode')
+        category =request.POST.get('category')
+
+        image = request.FILES.get('image')
+
+        try:
+            if title:
+                Product.objects.create(
+                    user=request.user, 
+                    barcode=barcode, 
+                    title=title, 
+                    price=price, 
+                    quantity=quantity, 
+                    sku=sku, 
+                    product_image=image, 
+                    category=category
+                )
+                messages.success(request, 'New product are added successfully')
+                return redirect('home')
+        except Exception:
+            messages.error(request,"Unable to submit")
+            return redirect('home')
     return render(request, 'index.html')
 
 @login_required
