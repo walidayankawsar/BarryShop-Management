@@ -40,7 +40,7 @@
                 <div class="user-avatar">
                     <i class="fa-solid fa-user"></i>
                 </div>
-                <span>Barry M.</span>
+                <span>{{ user.first_name }}</span>
                 <i class="fas fa-chevron-down"></i>
                 
                 <!-- Profile Dropdown -->
@@ -49,8 +49,8 @@
                         <div class="profile-avatar">
                             <i class="fa-solid fa-user"></i>
                         </div>
-                        <h3 class="profile-name">Barry M.</h3>
-                        <p class="profile-email">barry@barryshop.com</p>
+                        <h3 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h3>
+                        <p class="profile-email">{{ user.username }}</p>
                     </div>
                     <ul class="profile-menu">
                         <li>
