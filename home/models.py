@@ -66,7 +66,7 @@ class Product(models.Model):
         ("fitness","Fitness"),
         ("unknown","Unknown"),
         ("stationery","Stationery"),
-        ("home & garden","Home & Garden"),
+        ("home","Home & Garden"),
         ("clothing", "Clothing"),
     ]
 
@@ -74,6 +74,7 @@ class Product(models.Model):
     barcode = models.CharField(max_length=20)
     title = models.CharField(max_length=260)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=0)
     sku = models.CharField(max_length=50, unique=True, help_text="Stock Keeping Unit (unique identifier)")
     product_image = models.ImageField(upload_to='product_logos/', blank=True, null=True)
     is_complited = models.BooleanField(default=False)
