@@ -49,7 +49,8 @@
                         <div class="profile-avatar">
                             <i class="fa-solid fa-user"></i>
                         </div>
-                        <h3 class="profile-name">{{ user.get_full_name }}</h3>
+                        <h3 class="profile-name"><p>{{ user.first_name }} {{ user.last_name }}</p>
+</h3>
                         <p class="profile-email">{{ user.username }}</p>
                     </div>
                     <ul class="profile-menu">
@@ -500,16 +501,17 @@
             </div>
             
             <div class="modal-body">
-                <form id="productForm">
+                <form id="productForm" method='POST' enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="form-row">
                         <div class="form-group">
                             <label for="productName" class="form-label">Product Name</label>
-                            <input type="text" id="productName" class="form-control" required>
+                            <input type="text" name="title" class="form-control" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="productCategory" class="form-label">Category</label>
-                            <select id="productCategory" class="form-control" required>
+                            <select name="category" class="form-control" required>
                                 <option value="">Select Category</option>
                                 <option value="electronics">Electronics</option>
                                 <option value="clothing">Clothing</option>
@@ -517,7 +519,7 @@
                                 <option value="home">Home & Garden</option>
                                 <option value="fitness">Fitness</option>
                                 <option value="stationery">Stationery</option>
-                                <option value="stationery">Unknown</option>
+                                <option value="unknown">Unknown</option>
                             </select>
                         </div>
                     </div>
@@ -525,12 +527,12 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="productPrice" class="form-label">Price</label>
-                            <input type="number" id="productPrice" class="form-control" step="0.01" required>
+                            <input type="number" name="price" class="form-control" step="0.01" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="productStock" class="form-label">Stock Quantity</label>
-                            <input type="number" id="productStock" class="form-control" required>
+                            <input type="number" name="quantity" class="form-control" required>
                         </div>
                     </div>
                     
@@ -538,26 +540,26 @@
                         <label for="productBarcode" class="form-label">Barcode</label>
                         <div class="barcode-input-container">
                             <i></i>
-                            <input type="text" id="productBarcode" class="form-control" placeholder="Scan or enter barcode" required>
+                            <input type="text" name="barcode" class="form-control" placeholder="Scan or enter barcode" required>
                         </div>
                     </div>
                     
                     <div class="barcode-preview">
                         <p>Barcode Preview</p>
-                        <div class="barcode-preview-text" id="barcodePreview">123456789012</div>
+                        <div class="barcode-preview-text" name="barcodePreview">123456789012</div>
                         <button type="button" class="btn btn-outline">
                             <i class="fas fa-barcode"></i> Generate Barcode
                         </button>
                     </div>
                     
-                    <!--<div class="form-group">
-                        <label for="productDescription" class="form-label">Description (Optional)</label>
-                        <textarea id="productDescription" class="form-control" rows="3"></textarea>
-                    </div>-->
+                    <div class="form-group">
+                        <label for="sku" class="form-label">SKU</label>
+                        <input name="sku" class="form-control"></input>
+                    </div>
                     
                     <div class="form-group">
                         <label for="productImage" class="form-label">Product Image</label>
-                        <input type="file" id="productImage" class="form-control">
+                        <input type="file" name="image" class="form-control">
                     </div>
                     
                     <div class="form-actions">
