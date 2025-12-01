@@ -32,12 +32,6 @@
             }
         });
         
-        // Form submission
-        productForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Product saved successfully!');
-            closeProductModal();
-        });
         
         // Barcode scanning simulation
         scanBtn.addEventListener('click', () => {
