@@ -171,9 +171,6 @@ def contact(request):
 def about(request):
     return render(request, 'About.html')
 
-def profile(request):
-    return render(request, 'pages/profile.html')
-
 def priceing(request):
     return render(request, 'priceing.html')
 
@@ -249,7 +246,8 @@ def home(request):
 
 @login_required
 def settings(request):
-    return render(request, 'pages/settings.html')
+    product_list = Product.objects.filter(user=request.user).count()
+    return render(request, 'pages/settings.html', {'product_list': product_list})
 
 @login_required
 def product(request):
@@ -261,7 +259,18 @@ def order(request):
 
 @login_required
 def inventory(request):
-    return render(request, 'pages/inventory.html')
+    product_list = Product.objects.filter(user=request.user,).count()
+    out_of_stock = Product.objects.filter(user=request.user, priority='out of stock').count()
+    in_stock = Product.objects.filter(user=request.user, priority='in stock').count()
+    low_stock =Product.objects.filter(user=request.user, priority='low stock').count()
+
+    dynamic = {
+        'product_list' : product_list,
+        'out_of_stock' : out_of_stock,
+        'in_stock' : in_stock,
+        'low_stock' : low_stock
+    }
+    return render(request, 'pages/inventory.html', dynamic)
 
 @login_required
 def customers(request):
@@ -275,3 +284,15 @@ def categories(request):
 def barcode(request):
     return render(request, 'pages/barcode_manager.html')
 
+@login_required
+def profile(request):
+    product_list = Product.objects.filter(user=request.user).count()
+    low_stock = Product.objects.filter(user=request.user, priority='low stock').count()
+    out_of_stock = Product.objects.filter(user=request.user, priority='out of stock').count()
+
+    dynamic ={
+        'product_list' : product_list,
+        'low_stock' : low_stock,
+        'out_of_stock' : out_of_stock,
+    }
+    return render(request, 'pages/profile.html', dynamic)
