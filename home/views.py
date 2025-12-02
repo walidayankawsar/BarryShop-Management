@@ -193,6 +193,13 @@ def user_logout(request):
 @login_required
 def home(request):
 
+    products = Product.objects.filter(user=request.user)
+    product_list = products.count()
+    in_stock = Product.objects.filter(user=request.user, priority='in stock').count()
+    low_stock = Product.objects.filter(user=request.user, priority='low stock').count()
+    out_of_stock = Product.objects.filter(user=request.user, priority='out of stock').count()
+
+
     if request.method == "POST":
         title = request.POST.get('title')
         sku = request.POST.get('sku')
@@ -203,24 +210,42 @@ def home(request):
 
         image = request.FILES.get('image')
 
+        from decimal import Decimal
+        decimal_price = Decimal(price)
+        
+        qty = int(quantity)
+
+        if qty == 0:
+            priority = 'out of stock'
+        elif qty <= 5:
+            priority = 'low stock'
+        else:
+            priority = 'in stock'
+
         try:
             if title:
                 Product.objects.create(
                     user=request.user, 
                     barcode=barcode, 
                     title=title, 
-                    price=price, 
-                    quantity=quantity, 
+                    price=decimal_price, 
+                    quantity=qty, 
                     sku=sku, 
                     product_image=image, 
-                    category=category
+                    category=category,
+                    priority=priority
                 )
                 messages.success(request, 'New product are added successfully')
                 return redirect('home')
         except Exception:
             messages.error(request,"Unable to submit")
             return redirect('home')
-    return render(request, 'index.html')
+    return render(request, 'index.html', {
+        'product_list' : product_list,
+        'out_of_stock' : out_of_stock,
+        'in_stock' : in_stock,
+        'low_stock' : low_stock
+    })
 
 @login_required
 def settings(request):
