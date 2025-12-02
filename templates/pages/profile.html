@@ -527,7 +527,7 @@
                     <a href="{% url 'product' %}">
                         <i class="fas fa-boxes menu-icon"></i>
                         <span class="menu-text">Products</span>
-                        <span class="menu-badge">245</span>
+                        <span class="menu-badge">{{ product_list }}</span>
                     </a>
                 </li>
                 <li>
@@ -585,13 +585,13 @@
             
             <div class="stats-cards">
                 <div class="stat-card">
-                    <div class="stat-value">245</div>
+                    <div class="stat-value">{{ product_list }}</div>
                     <div class="stat-label">Total Products</div>
                     <div class="stat-change positive">+4122 (from last month)</div>
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-value">18</div>
+                    <div class="stat-value">{{ low_stock }}</div>
                     <div class="stat-label">Low Stock Items</div>
                     <div class="stat-change positive">+4451 (from last week)</div>
                 </div>
@@ -603,7 +603,7 @@
                 </div>
                 
                 <div class="stat-card">
-                    <div class="stat-value">7</div>
+                    <div class="stat-value">{{ out_of_stock }}</div>
                     <div class="stat-label">Out of Stock</div>
                     <div class="stat-change positive">+431 from last week</div>
                 </div>
@@ -687,12 +687,12 @@
                             
                             <div class="form-group">
                                 <label for="email">Email Address</label>
-                                <input type="email" id="email" class="form-control" value="{{ user.username }}" style="background: white; color: #333;">
+                                <input type="email" id="email" class="form-control" value="{{ user.email }}" style="background: white; color: #333;">
                             </div>
                             
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" class="form-control" value="{{user.email}}" style="background: white; color: #333;">
+                                <input type="tel" id="phone" class="form-control" value="{{ user.phone }}" style="background: white; color: #333;">
                             </div>
                             
                             <div class="form-group">
