@@ -251,11 +251,13 @@ def settings(request):
 
 @login_required
 def product(request):
-    return render(request, 'pages/product.html')
+    product_list = Product.objects.filter(user=request.user).count()
+    return render(request, 'pages/product.html', {'product_list':product_list})
 
 @login_required
 def order(request):
-    return render(request, 'pages/orders.html')
+    product_list = Product.objects.filter(user=request.user).count()
+    return render(request, 'pages/orders.html', {'product_list':product_list})
 
 @login_required
 def inventory(request):
