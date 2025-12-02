@@ -276,15 +276,18 @@ def inventory(request):
 
 @login_required
 def customers(request):
-    return render(request, 'pages/customers.html')
+    product_list = Product.objects.filter(user=request.user).count()
+    return render(request, 'pages/customers.html', {'product_list' : product_list})
 
 @login_required
 def categories(request):
-    return render(request, 'pages/categories.html')
+    product_list = Product.objects.filter(user=request.user).count()
+    return render(request, 'pages/categories.html',{'product_list':product_list})
 
 @login_required
 def barcode(request):
-    return render(request, 'pages/barcode_manager.html')
+    product_list = Product.objects.filter(user=request.user).count()
+    return render(request, 'pages/barcode_manager.html', {'product_list':product_list})
 
 @login_required
 def profile(request):
