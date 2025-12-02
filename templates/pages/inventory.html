@@ -93,7 +93,7 @@
                     <a href="{% url 'product' %}">
                         <i class="fas fa-boxes menu-icon"></i>
                         <span class="menu-text">Products</span>
-                        <span class="menu-badge">245</span>
+                        <span class="menu-badge">{{ product_list }}</span>
                     </a>
                 </li>
                 <li>
@@ -156,7 +156,7 @@
                 <div class="inventory-stats">
                     <div class="stat-card">
                         <div class="stat-title">Total Products</div>
-                        <div class="stat-value">245</div>
+                        <div class="stat-value">{{ product_list }}</div>
                         <div class="stat-change positive">
                             <i class="fas fa-arrow-up"></i> 12% from last month
                         </div>
@@ -164,7 +164,7 @@
             
                     <div class="stat-card">
                         <div class="stat-title">In Stock</div>
-                        <div class="stat-value">198</div>
+                        <div class="stat-value">{{ in_stock }}</div>
                         <div class="stat-change positive">
                             <i class="fas fa-arrow-up"></i> 8% from last week
                         </div>
@@ -172,7 +172,7 @@
             
                     <div class="stat-card">
                         <div class="stat-title">Low Stock</div>
-                        <div class="stat-value">32</div>
+                        <div class="stat-value">{{ low_stock }}</div>
                         <div class="stat-change negative">
                             <i class="fas fa-arrow-down"></i> 5 from last week
                         </div>
@@ -180,7 +180,7 @@
             
                     <div class="stat-card">
                         <div class="stat-title">Out of Stock</div>
-                        <div class="stat-value">15</div>
+                        <div class="stat-value">{{ out_of_stock }}</div>
                         <div class="stat-change positive">
                             <i class="fas fa-arrow-down"></i> 3 from last week
                         </div>
