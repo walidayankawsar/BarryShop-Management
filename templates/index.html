@@ -89,13 +89,13 @@
                     <a href="{% url 'home' %}" class="active">
                         <i class="fas fa-tachometer-alt menu-icon"></i>
                         <span class="menu-text">Dashboard</span>
+                        <span class="menu-badge">{{ product_list }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'product' %}">
+                    <a href="{% url 'search' %}">
                         <i class="fas fa-boxes menu-icon"></i>
-                        <span class="menu-text">Products</span>
-                        <span class="menu-badge">{{ product_list }}</span>
+                        <span class="menu-text">Search Result</span>
                     </a>
                 </li>
                 <li>
@@ -348,23 +348,29 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for product in products %}
                             <tr>
                                 <td>
                                     <div class="product-cell">
-                                        <img src="https://via.placeholder.com/50" alt="Product" class="product-image">
+                                        <img src="{{ product.product_image.url }}" alt="Product" class="product-image">
                                         <div class="product-info">
-                                            <span class="product-name">Wireless Headphones Pro</span>
-                                            <span class="product-sku">SKU: HP-2023-XB</span>
+                                            <span class="product-name">{{ product.title }}</span>
+                                            <span class="product-sku">{{ product.sku }}</span>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <span class="barcode-display">890123456789</span>
+                                    <span class="barcode-display">{{ product.barcode }}</span>
                                 </td>
-                                <td>Electronics</td>
-                                <td>$129.99</td>
+                                <td>{{ product.category }}</td>
+                                <td>৳{{ product.price }}</td>
                                 <td>
-                                    <span class="stock-status stock-in">In Stock (45)</span>
+                                    <span class="stock-status {% if product.priority == 'in stock' %} stock-in
+                                                              {% elif product.priority == 'low stock' %} stock-low
+                                                              {% else %} stock-out
+                                                              {% endif %}">
+                                                              {{ product.priority }} ({{ product.quantity }})
+                                    </span>
                                 </td>
                                 <td>
                                     <button class="action-btn edit-btn">
@@ -375,114 +381,7 @@
                                     </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="product-cell">
-                                        <img src="https://via.placeholder.com/50" alt="Product" class="product-image">
-                                        <div class="product-info">
-                                            <span class="product-name">Organic Green Tea</span>
-                                            <span class="product-sku">SKU: TEA-ORG-25G</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="barcode-display">890987654321</span>
-                                </td>
-                                <td>Groceries</td>
-                                <td>$8.99</td>
-                                <td>
-                                    <span class="stock-status stock-low">Low Stock (5)</span>
-                                </td>
-                                <td>
-                                    <button class="action-btn edit-btn">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </button>
-                                    <button class="action-btn delete-btn">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="product-cell">
-                                        <img src="https://via.placeholder.com/50" alt="Product" class="product-image">
-                                        <div class="product-info">
-                                            <span class="product-name">Yoga Mat (Premium)</span>
-                                            <span class="product-sku">SKU: YG-2023-PRM</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="barcode-display">890567891234</span>
-                                </td>
-                                <td>Fitness</td>
-                                <td>$39.99</td>
-                                <td>
-                                    <span class="stock-status stock-out">Out of Stock</span>
-                                </td>
-                                <td>
-                                    <button class="action-btn edit-btn">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </button>
-                                    <button class="action-btn delete-btn">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="product-cell">
-                                        <img src="https://via.placeholder.com/50" alt="Product" class="product-image">
-                                        <div class="product-info">
-                                            <span class="product-name">Bluetooth Speaker</span>
-                                            <span class="product-sku">SKU: SPK-BT-50W</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="barcode-display">890345678912</span>
-                                </td>
-                                <td>Electronics</td>
-                                <td>$59.99</td>
-                                <td>
-                                    <span class="stock-status stock-in">In Stock (28)</span>
-                                </td>
-                                <td>
-                                    <button class="action-btn edit-btn">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </button>
-                                    <button class="action-btn delete-btn">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="product-cell">
-                                        <img src="https://via.placeholder.com/50" alt="Product" class="product-image">
-                                        <div class="product-info">
-                                            <span class="product-name">Stainless Steel Water Bottle</span>
-                                            <span class="product-sku">SKU: BTL-SS-750</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="barcode-display">890456789123</span>
-                                </td>
-                                <td>Accessories</td>
-                                <td>$24.95</td>
-                                <td>
-                                    <span class="stock-status stock-in">In Stock (62)</span>
-                                </td>
-                                <td>
-                                    <button class="action-btn edit-btn">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </button>
-                                    <button class="action-btn delete-btn">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
