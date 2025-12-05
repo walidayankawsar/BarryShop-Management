@@ -83,16 +83,8 @@
             border-bottom: 1px solid #eee;
             padding-bottom: 0.5rem;
         }
+    
         
-        .barcode-section {
-            margin-bottom: 2rem;
-        }
-        
-        .barcode-scanner {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
         
         #barcode-input {
             flex: 1;
@@ -102,16 +94,7 @@
             font-size: 1rem;
         }
         
-        .btn {
-            padding: 0.75rem 1.25rem;
-            background-color: var(--primary);
-            color: var(--light);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-        }
+
         
         .btn:hover {
             background-color: #3a5bef;
