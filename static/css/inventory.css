@@ -85,6 +85,12 @@
             color: #F44336;
             font-weight: 500;
         }
+
+        .in-stock {
+            background-color: #bae5d0;
+            color: #4CAF50;
+            font-weight: 500;
+        }
         
         .btn {
             padding: 10px 20px;
