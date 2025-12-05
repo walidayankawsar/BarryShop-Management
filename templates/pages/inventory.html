@@ -87,12 +87,6 @@
                     <a href="{% url 'home' %}">
                         <i class="fas fa-tachometer-alt menu-icon"></i>
                         <span class="menu-text">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'product' %}">
-                        <i class="fas fa-boxes menu-icon"></i>
-                        <span class="menu-text">Products</span>
                         <span class="menu-badge">{{ product_list }}</span>
                     </a>
                 </li>
@@ -198,13 +192,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                            <td>Wireless Headphones</td>
-                            <td>890123456789</td>
-                            <td>45</td>
-                            <td>2 hours ago</td>
-                            <td>In Stock</td>
+                        {% for product in products %}
+                        <tr>
+                            <td>{{ product.title }}</td>
+                            <td>{{ product.barcode }}</td>
+                            <td class="{% if product.priority == 'low stock' %} stock-low
+                                       {% elif product.priority == 'in stock' %} in-stock
+                                       {% else %} stock-out
+                                       {% endif %}">{{ product.quantity }}</td>
+                            <td>{{ product.created_at }}</td>
+                            <td class="{% if product.priority == 'low stock' %} stock-low
+                                       {% elif product.priority == 'in stock' %} in-stock
+                                       {% else %} stock-out
+                                       {% endif %}">{{ product.priority }}</td>
                         </tr>
+                        {% endfor %}
                         <tr>
                             <td>Bluetooth Speaker</td>
                             <td>890987654321</td>
