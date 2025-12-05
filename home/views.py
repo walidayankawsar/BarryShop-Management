@@ -241,7 +241,8 @@ def home(request):
         'product_list' : product_list,
         'out_of_stock' : out_of_stock,
         'in_stock' : in_stock,
-        'low_stock' : low_stock
+        'low_stock' : low_stock,
+        'products' : products
     })
 
 @login_required
@@ -250,9 +251,9 @@ def settings(request):
     return render(request, 'pages/settings.html', {'product_list': product_list})
 
 @login_required
-def product(request):
+def search(request):
     product_list = Product.objects.filter(user=request.user).count()
-    return render(request, 'pages/product.html', {'product_list':product_list})
+    return render(request, 'pages/search.html', {'product_list':product_list})
 
 @login_required
 def order(request):
@@ -261,7 +262,8 @@ def order(request):
 
 @login_required
 def inventory(request):
-    product_list = Product.objects.filter(user=request.user,).count()
+    products = Product.objects.filter(user=request.user,)
+    product_list =products.count()
     out_of_stock = Product.objects.filter(user=request.user, priority='out of stock').count()
     in_stock = Product.objects.filter(user=request.user, priority='in stock').count()
     low_stock =Product.objects.filter(user=request.user, priority='low stock').count()
@@ -270,7 +272,8 @@ def inventory(request):
         'product_list' : product_list,
         'out_of_stock' : out_of_stock,
         'in_stock' : in_stock,
-        'low_stock' : low_stock
+        'low_stock' : low_stock,
+        'products' : products
     }
     return render(request, 'pages/inventory.html', dynamic)
 
