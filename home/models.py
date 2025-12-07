@@ -32,7 +32,7 @@ class Employee(AbstractBaseUser, PermissionsMixin):
     objects = EmployeeManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'phone']
 
     class Meta:
         verbose_name = 'Employee'
@@ -52,6 +52,18 @@ class VerifiCode(models.Model):
         return timezone.now() > self.created_at + timedelta(seconds=60)
     
 
+
+class Category(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    name = models.CharField(max_length=20, unique=True)
+    icon = models.CharField(max_length=50, default='fas fa-tag')
+    description = models.TextField(blank=True, null=True)
+    color = models.CharField(max_length=20, default='#3498db')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+
 class Product(models.Model):
 
     priority_list = [
@@ -60,17 +72,8 @@ class Product(models.Model):
         ("out of stock", "Out of Stock"),
     ]
 
-    category_list = [
-        ("electronics", "Electronics"),
-        ("groceries","Groceries"),
-        ("fitness","Fitness"),
-        ("unknown","Unknown"),
-        ("stationery","Stationery"),
-        ("home","Home & Garden"),
-        ("clothing", "Clothing"),
-    ]
-
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
     barcode = models.CharField(max_length=20)
     title = models.CharField(max_length=260)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -79,5 +82,4 @@ class Product(models.Model):
     product_image = models.ImageField(upload_to='product_logos/', blank=True, null=True)
     is_complited = models.BooleanField(default=False)
     priority = models.CharField(max_length=20, choices=priority_list, default='low stock')
-    category = models.CharField(max_length=20, choices=category_list, default='unknown')
     created_at = models.DateTimeField(auto_now_add=True)
