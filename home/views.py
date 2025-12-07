@@ -6,8 +6,10 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.conf import settings
 from random import randint
-from . models import VerifiCode, Employee, Product
+from . models import VerifiCode, Employee, Product, Category
 from django.core.mail import send_mail
+from .forms import CategoryForm
+from django.db.models import Count
 
 
 # Create your views here.
@@ -196,6 +198,7 @@ def home(request):
     low_stock = Product.objects.filter(user=request.user, priority='low stock').count()
     out_of_stock = Product.objects.filter(user=request.user, priority='out of stock').count()
 
+    categories = Category.objects.filter(user=request.user)
 
     if request.method == "POST":
         title = request.POST.get('title')
@@ -203,14 +206,21 @@ def home(request):
         price = request.POST.get('price')
         quantity = request.POST.get('quantity')
         barcode = request.POST.get('barcode')
-        category =request.POST.get('category')
 
         image = request.FILES.get('image')
 
         from decimal import Decimal
         decimal_price = Decimal(price)
-        
         qty = int(quantity)
+
+        category_id = request.POST.get('category')
+        category = None
+        if category_id and category_id != "":
+            try:
+                category = Category.objects.get(id=category_id, user=request.user)
+            except Category.DoesNotExist:
+                pass
+
 
         if qty == 0:
             priority = 'out of stock'
@@ -221,28 +231,32 @@ def home(request):
 
         try:
             if title:
-                Product.objects.create(
-                    user=request.user, 
-                    barcode=barcode, 
-                    title=title, 
-                    price=decimal_price, 
-                    quantity=qty, 
-                    sku=sku, 
-                    product_image=image, 
-                    category=category,
-                    priority=priority
-                )
-                messages.success(request, 'New product are added successfully')
+                if Product.objects.filter(sku=sku).exists():
+                    messages.error(request, "SKU already exists..try different SKU")
+                else:
+                    Product.objects.create(
+                        user=request.user, 
+                        barcode=barcode, 
+                        title=title, 
+                        price=decimal_price, 
+                        quantity=qty, 
+                        sku=sku, 
+                        product_image=image, 
+                        category=category,
+                        priority=priority
+                    )
+                    messages.success(request, 'New product are added successfully')
                 return redirect('home')
         except Exception:
             messages.error(request,"Unable to submit")
-            return redirect('home')
+        return redirect('home')
     return render(request, 'index.html', {
         'product_list' : product_list,
         'out_of_stock' : out_of_stock,
         'in_stock' : in_stock,
         'low_stock' : low_stock,
-        'products' : products
+        'products' : products,
+        'categories' : categories
     })
 
 @login_required
@@ -285,7 +299,96 @@ def customers(request):
 @login_required
 def categories(request):
     product_list = Product.objects.filter(user=request.user).count()
-    return render(request, 'pages/categories.html',{'product_list':product_list})
+    categories_list = Category.objects.filter(user=request.user).annotate(
+        product_count=Count('product')
+    )
+
+
+
+    # for editing a spacific category
+    edit_category = None
+    edit_id = request.GET.get('edit')
+
+    if edit_id:
+        try:
+            edit_category = Category.objects.get(id=edit_id, user=request.user)
+        except Category.DoesNotExist:
+            messages.error(request, "Nategory not found")
+
+    if request.method == 'POST':
+
+        #  Add category
+        if 'add_category' in request.POST:
+            name = request.POST.get('name', '').strip()
+            icon = request.POST.get('icon', 'fas fa-tag')
+            color = request.POST.get('color', '').strip()
+            description = request.POST.get('description', '').strip()
+
+            if not name:
+                messages.error(request, 'Category name is required.')
+            elif Category.objects.filter(name=name, user=request.user).exists():
+                messages.error(request, f"Category '{name}' already exists.")
+            else:
+                Category.objects.create(
+                    user = request.user,
+                    name = name,
+                    icon = icon,
+                    color = color,
+                    description = description,
+
+                )
+                messages.success(request, 'Category added successfully.')
+            return redirect('categories')
+
+
+        
+        # Edit category
+        elif 'edit_category' in request.POST:
+            category_id = request.POST.get('category_id')
+            category = get_object_or_404(Category, id=category_id, user=request.user)
+
+        
+            name = request.POST.get('name', '').strip()
+            icon = request.POST.get('icon', 'fas fa-tag')
+            color = request.POST.get('color', '#3498db')
+            description = request.POST.get('description', '').strip()
+
+            if not name:
+                messages.error(request, "Category name is required.")
+            elif Category.objects.filter(name=name, user=request.user).exclude(id=category_id).exists():
+                messages.error(request, f"Category '{name}' already exists.")
+            else:
+                category.name = name
+                category.icon = icon
+                category.color = color
+                category.description = description
+                category.save()
+                messages.success(request, 'category updated successfully')
+            return redirect('categories')
+        
+        # Delete Category
+        elif 'delete_category' in request.POST:
+            category_id = request.POST.get('category_id')
+
+            category = get_object_or_404(Category, id=category_id, user=request.user)
+
+            # Check if category has products
+            product_count = category.product_set.count()
+            if product_count > 0:
+                messages.error(request, f'Cannot delete "{category.name}" - it has {product_count} product(s)!')
+            else:
+                category_name = category.name
+                category.delete()
+                messages.success(request, f"Category '{category_name}' deleted successfully.")
+            return redirect('categories')
+        
+        
+    context = {
+        'product_list' : product_list,
+        'categories' : categories_list,
+        'edit_category' : edit_category,
+    }
+    return render(request, 'pages/categories.html', context)
 
 @login_required
 def barcode(request):
