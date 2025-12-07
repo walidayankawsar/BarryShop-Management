@@ -319,7 +319,11 @@
                             <tr>
                                 <td>
                                     <div class="product-cell">
-                                        <img src="{{ product.product_image.url }}" alt="Product" class="product-image">
+                                        {% if product.product_image %}
+                                            <img src="{{ product.product_image.url }}" alt="Product" class="product-image">
+                                        {% else %}
+                                            <img src='' alt="product" class="product-image">
+                                        {% endif %}
                                         <div class="product-info">
                                             <span class="product-name">{{ product.title }}</span>
                                             <span class="product-sku">{{ product.sku }}</span>
@@ -377,7 +381,7 @@
                         
                         <div class="form-group">
                             <label for="productCategory" class="form-label">Category</label>
-                            <select name="category" class="form-control">
+                            <select name="category" class="form-control" required>
                                 {% for category in categories %}
                                     <option value="{{ category.id }}">{{ category.name }}</option>
                                 {% empty %}
@@ -417,7 +421,7 @@
                     
                     <div class="form-group">
                         <label for="sku" class="form-label">SKU (it should be qunick)</label>
-                        <input name="sku" class="form-control"></input>
+                        <input name="sku" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
