@@ -274,39 +274,6 @@
             
                         <div class="filter-list">
                             <!-- Category Filter -->
-                            <div class="filter-group">
-                                <label class="filter-label">Categories <span class="filter-count">7</span></label>
-                                <div class="checkbox-list">
-                                    <div class="checkbox-item">
-                                        <input type="radio" name="category" id="cat-electronics">
-                                        <label for="cat-electronics">Electronics</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="radio" name="category" id="cat-clothing">
-                                        <label for="cat-clothing">Clothing</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="radio" name="category" id="cat-home">
-                                        <label for="cat-home">Home & Garden</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="radio" name="category" id="cat-sports">
-                                        <label for="cat-sports">Fitness</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="radio" name="category" id="cat-books">
-                                        <label for="cat-books">Groceries</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="radio" name="category" id="cat-beauty">
-                                        <label for="cat-beauty">Stationery</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="radio" name="category" id="cat-unknown">
-                                        <label for="cat-unknown">Unknown</label>
-                                    </div>
-                                </div>
-                            </div>
                 
                 
                             <!-- Stock Status -->
@@ -362,7 +329,7 @@
                                 <td>
                                     <span class="barcode-display">{{ product.barcode }}</span>
                                 </td>
-                                <td>{{ product.category }}</td>
+                                <td>{{ product.category.name }}</td>
                                 <td>৳{{ product.price }}</td>
                                 <td>
                                     <span class="stock-status {% if product.priority == 'in stock' %} stock-in
@@ -410,15 +377,12 @@
                         
                         <div class="form-group">
                             <label for="productCategory" class="form-label">Category</label>
-                            <select name="category" class="form-control" required>
-                                <option value="">Select Category</option>
-                                <option value="electronics">Electronics</option>
-                                <option value="clothing">Clothing</option>
-                                <option value="groceries">Groceries</option>
-                                <option value="home">Home & Garden</option>
-                                <option value="fitness">Fitness</option>
-                                <option value="stationery">Stationery</option>
-                                <option value="unknown">Unknown</option>
+                            <select name="category" class="form-control">
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% empty %}
+                                    <option value="" disabled>No categories found. Add categories first.</option>
+                                {%  endfor %}
                             </select>
                         </div>
                     </div>
