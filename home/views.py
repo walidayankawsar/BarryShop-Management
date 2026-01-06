@@ -264,10 +264,10 @@ def settings(request):
     product_list = Product.objects.filter(user=request.user).count()
     return render(request, 'pages/settings.html', {'product_list': product_list})
 
-@login_required
+'''@login_required
 def search(request):
     product_list = Product.objects.filter(user=request.user).count()
-    return render(request, 'pages/search.html', {'product_list':product_list})
+    return render(request, 'pages/search.html', {'product_list':product_list})'''
 
 @login_required
 def order(request):
@@ -407,3 +407,18 @@ def profile(request):
         'out_of_stock' : out_of_stock,
     }
     return render(request, 'pages/profile.html', dynamic)
+
+
+
+@login_required
+def search(request):
+    query = request.GET.get('q')
+    results = []
+    if query:
+        results = Product.objects.filter(
+            title__icontains=query,
+            user=request.user
+        ).distinct()
+    product_list = Product.objects.filter(user=request.user).count()
+    return render(request, 'pages/search.html', {'product_list':product_list, 'query':query, 'results':results})
+    
