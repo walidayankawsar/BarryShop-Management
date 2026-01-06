@@ -137,7 +137,7 @@
         </aside>
 
         <div class="main-content">
-            <h1 class="page-title">Search Result</h1>
+            <h1 class="page-title">Search Results for "{{ query }}"</h1>
                 
             <table class="products-table">
                 <thead>
@@ -151,39 +151,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>890123456789</td>
-                        <td>Premium Headphones</td>
-                        <td>Electronics</td>
-                        <td>$99.99</td>
-                        <td>45</td>
-                        <td>
-                            <button class="action-btn edit-btn">Edit</button>
-                            <button class="action-btn delete-btn">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>890987654321</td>
-                        <td>Wireless Mouse</td>
-                        <td>Electronics</td>
-                        <td>$25.50</td>
-                        <td>120</td>
-                        <td>
-                            <button class="action-btn edit-btn">Edit</button>
-                            <button class="action-btn delete-btn">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>890567891234</td>
-                        <td>Notebook</td>
-                        <td>Stationery</td>
-                        <td>$3.99</td>
-                        <td>200</td>
-                        <td>
-                            <button class="action-btn edit-btn">Edit</button>
-                            <button class="action-btn delete-btn">Delete</button>
-                        </td>
-                    </tr>
+                    {% if results %}
+                        {% for data in results %}
+                            <tr>
+                                <td>{{ data.barcode }}</td>
+                                <td>{{ data.title }}</td>
+                                <td>{{ data.category.name }}</td>
+                                <td>{{ data.price }}</td>
+                                <td>{{ data.quantity }}</td>
+                                <td>
+                                    <button class="action-btn edit-btn">Edit</button>
+                                    <button class="action-btn delete-btn">Delete</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>NO result found</td>
+                        </tr>
+                    {% endif %}
+
                 </tbody>
             </table>
                 
