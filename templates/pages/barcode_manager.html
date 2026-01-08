@@ -155,24 +155,42 @@
                     </div>
             
                     <div class="scanner-input">
-                        <input type="text" placeholder="Scan barcode">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-search"></i> Search
-                       </button>
+                        <form method="GET">
+                            <input type="text" name="scan" placeholder="Scan barcode" value="{{request.GET.scan}}">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </form>
                     </div>
-            
-                    <div class="barcode-preview">
-                        <p>Barcode Preview</p>
-                        <div class="barcode-text">890123456789</div>
-                        <div class="barcode-actions">
-                            <button class="btn btn-outline">
-                                <i class="fas fa-print"></i> Print
-                            </button>
-                            <button class="btn btn-outline">
-                                <i class="fas fa-download"></i> Download
-                            </button>
+                    
+                    {% if results %}
+                        <div class="barcode-preview">
+                            <p>Barcode Preview</p>
+                            <div class="barcode-text">{{results.barcode}}</div>
+                            <p>{{results.barcode}}</p>
+                            <div class="barcode-actions">
+                                <button class="btn btn-outline">
+                                    <i class="fas fa-print"></i> Print
+                                </button>
+                                <button class="btn btn-outline">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    {% else %}
+                        <div class="barcode-preview">
+                            <p>Barcode Preview</p>
+                            <div class="barcode-text"></div>
+                            <div class="barcode-actions">
+                                <button class="btn btn-outline">
+                                    <i class="fas fa-print"></i> Print
+                                </button>
+                                <button class="btn btn-outline">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
         
                 <div class="barcode-history">
