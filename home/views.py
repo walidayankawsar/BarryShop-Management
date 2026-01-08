@@ -393,7 +393,14 @@ def categories(request):
 @login_required
 def barcode(request):
     product_list = Product.objects.filter(user=request.user).count()
-    return render(request, 'pages/barcode_manager.html', {'product_list':product_list})
+    query = request.GET.get('scan')
+    results = []
+    if query:
+        results = Product.objects.filter(
+            barcode__icontains=query,
+            user=request.user
+        ).first()
+    return render(request, 'pages/barcode_manager.html', {'product_list':product_list, 'results':results, 'query':query})
 
 @login_required
 def profile(request):
@@ -421,4 +428,3 @@ def search(request):
         ).distinct()
     product_list = Product.objects.filter(user=request.user).count()
     return render(request, 'pages/search.html', {'product_list':product_list, 'query':query, 'results':results})
-    
