@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.conf import settings
 from random import randint
-from . models import VerifiCode, Employee, Product, Category
+from . models import VerifiCode, Employee, Product, Category, RecentScan
 from django.core.mail import send_mail
 from .forms import CategoryForm
 from django.db.models import Count
@@ -400,7 +400,23 @@ def barcode(request):
             barcode__icontains=query,
             user=request.user
         ).first()
-    return render(request, 'pages/barcode_manager.html', {'product_list':product_list, 'results':results, 'query':query})
+
+        if results:
+            RecentScan.objects.create(
+                user = request.user,
+                barcode = results.barcode, # hare .barcode is from product models
+                title = results.title
+            )
+
+    recent_scan = RecentScan.objects.filter(
+        user = request.user,
+    ).order_by('-scanned_at') [:5]
+    return render(request, 'pages/barcode_manager.html', {
+        'product_list':product_list,
+        'results':results,
+        'query':query,
+        'Recent_Scan':recent_scan
+        })
 
 @login_required
 def profile(request):
@@ -420,11 +436,22 @@ def profile(request):
 @login_required
 def search(request):
     query = request.GET.get('q')
+    search = request.GET.get('src')
     results = []
     if query:
         results = Product.objects.filter(
             title__icontains=query,
             user=request.user
         ).distinct()
+    if search:
+        results = Product.objects.filter(
+            barcode__icontains=search,
+            user=request.user
+        )
     product_list = Product.objects.filter(user=request.user).count()
-    return render(request, 'pages/search.html', {'product_list':product_list, 'query':query, 'results':results})
+    return render(request, 'pages/search.html', {
+        'product_list':product_list,
+        'query':query,
+        'results':results,
+        'search': search
+        })
