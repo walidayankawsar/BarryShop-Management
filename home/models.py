@@ -83,3 +83,10 @@ class Product(models.Model):
     is_complited = models.BooleanField(default=False)
     priority = models.CharField(max_length=20, choices=priority_list, default='low stock')
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class RecentScan(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    barcode = models.CharField(max_length=255)
+    title = models.CharField(max_length=260)
+    scanned_at = models.DateTimeField(auto_now_add=True)
