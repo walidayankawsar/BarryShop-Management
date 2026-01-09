@@ -204,13 +204,15 @@
                 </div>
                 
                 <div class="barcode-scanner">
-                    <div class="barcode-input-container">
-                        <i class="fas fa-barcode barcode-icon"></i>
-                        <input type="text" class="barcode-input" placeholder="Scan barcode or enter manually" id="barcodeInput">
-                    </div>
-                    <button class="btn btn-accent" id="scanBtn">
-                        <i class="fas fa-search"></i> Search
-                    </button>
+                    <form method="GET" action="{% url 'search' %}">
+                        <div class="barcode-input-container">
+                            <i class="fas fa-barcode barcode-icon"></i>
+                            <input type="number" name="src" class="barcode-input" placeholder="Scan barcode or enter manually" value="{{request.GET.src}}">
+                        </div>
+                        <button class="btn btn-accent">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </form>
                 </div>
                 
                 <div class="quick-stats">
