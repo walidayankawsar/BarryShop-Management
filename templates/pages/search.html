@@ -30,12 +30,10 @@
         </div>
         
         <div class="header-actions">
-            <form method="GET" action="{% url 'search' %}">
-                <div class="search-bar">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" name="q" placeholder="Search products..." value="{{request.GET.q}}">
-                </div>
-            </form>
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search products...">
+            </div>
             
             <div class="user-profile" id="userProfile">
                 <div class="user-avatar">
@@ -139,7 +137,11 @@
         </aside>
 
         <div class="main-content">
-            <h1 class="page-title">Search Results for "{{ query }}"</h1>
+            {% if query %}
+                <h1 class="page-title">Search Results for "{{ query }}"</h1>
+            {% else %}
+                <h1 class="page-title">Search Results for "{{ search }}"</h1>
+            {% endif %}
                 
             <table class="products-table">
                 <thead>
