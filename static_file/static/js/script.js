@@ -4,7 +4,6 @@
         const closeModal = document.getElementById('closeModal');
         const cancelForm = document.getElementById('cancelForm');
         const productForm = document.getElementById('productForm');
-        const barcodeInput = document.getElementById('barcodeInput');
         const scanBtn = document.getElementById('scanBtn');
         const productBarcode = document.getElementById('productBarcode');
         const barcodePreview = document.getElementById('barcodePreview');
@@ -39,25 +38,9 @@
             closeProductModal();
         });
         
-        // Barcode scanning simulation
-        scanBtn.addEventListener('click', () => {
-            const barcode = barcodeInput.value;
-            if (barcode) {
-                alert(`Searching for product with barcode: ${barcode}`);
-                // In real implementation, this would search your database
-            } else {
-                alert('Please enter or scan a barcode');
-            }
-        });
         
         // Barcode preview update
         productBarcode.addEventListener('input', () => {
             barcodePreview.textContent = productBarcode.value || '123456789012';
         });
         
-        // Simulate barcode scanner input
-        document.addEventListener('keydown', (e) => {
-            if (e.target === barcodeInput && e.key === 'Enter') {
-                scanBtn.click();
-            }
-        });
