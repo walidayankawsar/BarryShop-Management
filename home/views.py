@@ -232,7 +232,9 @@ def home(request):
         try:
             if title:
                 if Product.objects.filter(sku=sku).exists():
-                    messages.error(request, "SKU already exists..try different SKU")
+                    messages.error(request, "SKU already exists, try different SKU")
+                if Product.objects.filter(barcode=barcode).exists():
+                    messages.error(request, "Barcode already exists, try different Barcode.")
                 else:
                     Product.objects.create(
                         user=request.user, 
