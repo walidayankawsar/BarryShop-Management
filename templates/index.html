@@ -145,7 +145,16 @@
             <!-- Page Header -->
             <div class="page-header">
                 <h1 class="page-title">Product Dashboard</h1>
-                <h6>messages</h6>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <h6 style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">
+                            {{ message }}
+                        </h6>
+                    {% endfor %}
+                {% endif %}
+
+
                 <div class="page-actions">
                     <button class="btn btn-outline">
                         <i class="fas fa-file-export"></i> Export
