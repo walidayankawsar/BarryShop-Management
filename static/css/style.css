@@ -281,42 +281,55 @@
             color: var(--primary);
         }
         
-        /* Barcode Scanner Section */
-        .barcode-scanner {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .barcode-input-container {
-            flex: 1;
-            position: relative;
-        }
-        
-        .barcode-input {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3.5rem;
-            border: 1px solid var(--gray);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        
-        .barcode-input:focus {
-            outline: none;
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(108, 74, 182, 0.2);
-        }
-        
-        .barcode-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary-light);
-            font-size: 1.2rem;
-        }
+/* Barcode Scanner Section */
+.barcode-scan {
+    margin-bottom: 1.5rem;
+}
+
+.barcode-input-container {
+    position: relative;
+    width: 100%;
+}
+
+.barcode-input {
+    width: 100%;
+    padding: 1rem 3.2rem 1rem 3.5rem; /* right = button, left = icon */
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.barcode-input:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(108, 74, 182, 0.2);
+}
+
+.barcode-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-light);
+    font-size: 1.2rem;
+}
+
+.search-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: #ff9800;
+    color: white;
+    padding: 7px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+
         
         /* Products Table */
         .products-table {
