@@ -33,7 +33,15 @@
             <form method="GET" action="{% url 'search' %}">
                 <div class="search-bar">
                     <i class="fas fa-search search-icon"></i>
-                    <input type="text" name="q" placeholder="Search products..." value="{{request.GET.q}}">
+                    <input
+                        type="text" 
+                        name="q" 
+                        placeholder="Search products..." 
+                        value="{{request.GET.q}}"
+                        pattern="[A-Za-z\s]+"
+                        title="Only Letters are allowed"
+                        required
+                    >
                 </div>
             </form>
             
@@ -151,8 +159,8 @@
                 </div>
         
                 <div class="order-filters">
-                    <button class="filter-btn active">All Orders</button>
-                    <button class="filter-btn">Pending</button>
+                    <button class="filter-btn">All Orders</button>
+                    <button class="filter-btn active">Pending</button>
                     <button class="filter-btn">Completed</button>
                     <button class="filter-btn">Cancelled</button>
                     <button class="filter-btn">Today</button>
@@ -193,7 +201,7 @@
             
                     <div class="order-actions">
                         <button class="action-btn view-btn">
-                            <i class="fas fa-eye"></i> View Details
+                            <i class="fas fa-eye"></i> Cancel Order
                         </button>
                         <button class="action-btn process-btn">
                             <i class="fas fa-check"></i> Process Order
