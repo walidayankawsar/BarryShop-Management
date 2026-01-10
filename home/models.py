@@ -74,7 +74,7 @@ class Product(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
-    barcode = models.CharField(max_length=20)
+    barcode = models.CharField(max_length=20, unique=True)
     title = models.CharField(max_length=260)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=0)
