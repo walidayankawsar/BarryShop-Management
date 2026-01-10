@@ -282,7 +282,7 @@
         }
         
         /* Barcode Scanner Section */
-        .barcode-scanner {
+        .barcode-scan {
             display: flex;
             align-items: center;
             gap: 15px;
