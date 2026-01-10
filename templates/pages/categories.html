@@ -257,7 +257,15 @@
             <form method="GET" action="{% url 'search' %}">
                 <div class="search-bar">
                     <i class="fas fa-search search-icon"></i>
-                    <input type="text" name="q" placeholder="Search products..." value="{{request.GET.q}}">
+                    <input
+                        type="text" 
+                        name="q" 
+                        placeholder="Search products..." 
+                        value="{{request.GET.q}}"
+                        pattern="[A-Za-z\s]+"
+                        title="Only Letters are allowed"
+                        required
+                    >
                 </div>
             </form>
             
@@ -279,7 +287,7 @@
                     </div>
                     <ul class="profile-menu">
                         <li>
-                            <a href="#">
+                            <a href="{% url 'profile' %}">
                                 <i class="fas fa-user"></i> My Profile
                             </a>
                         </li>
