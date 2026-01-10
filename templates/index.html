@@ -212,31 +212,45 @@
                         </button>
                     </div>
                 </div>
-                
-                <div class="barcode-scan">
-                    <form method="GET" action="{% url 'search' %}">
-                        <div class="barcode-input-container">
-                            <i class="fas fa-barcode barcode-icon"></i>
-                            <input type="number" name="src" class="barcode-input" placeholder="Scan barcode or enter manually" value="{{request.GET.src}}">
-                        </div>
-                        <button class="btn btn-accent">
-                            <i class="fas fa-search"></i> Search
-                        </button>
-                    </form>
-                </div>
-
 
                 <div class="barcode-scan">
                     <form method="GET" action="{% url 'search' %}">
                         <div class="barcode-input-container">
                             <i class="fas fa-barcode barcode-icon"></i>
-                            <input type="number" name="src" class="barcode-input" placeholder="Scan barcode or enter manually" value="{{request.GET.src}}">
+
+                            <input type="number"
+                                name="src"
+                                class="barcode-input"
+                                placeholder="Search Product by Scan barcode or enter manually"
+                                value="{{ request.GET.src }}">
+
+                            <button type="submit" class="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
                         </div>
-                        <button class="btn btn-accent">
-                            <i class="fas fa-search"></i> Sell Product
-                        </button>
                     </form>
                 </div>
+
+
+
+                <div class="barcode-scan">
+                    <form method="GET" action="">
+                        <div class="barcode-input-container">
+                            <i class="fas fa-barcode barcode-icon"></i>
+
+                            <input type="number"
+                                name="sell"
+                                class="barcode-input"
+                                placeholder="Sell Product by Scan barcode or enter manually"
+                                value="{{ request.GET.sell }}">
+
+                            <button type="submit" class="search-btn">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
                 
                 <div class="quick-stats">
                     <div class="quick-stat">
