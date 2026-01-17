@@ -10,6 +10,8 @@ from . models import VerifiCode, Employee, Product, Category, RecentScan
 from django.core.mail import send_mail
 from .forms import CategoryForm
 from django.db.models import Count
+from openpyxl import workbook
+from django.http import HttpResponse
 
 
 # Create your views here.
