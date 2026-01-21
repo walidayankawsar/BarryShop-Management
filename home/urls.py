@@ -23,4 +23,6 @@ urlpatterns = [
     path('categories/', views.categories, name='categories'),
     path('barcode/', views.barcode, name='barcode'),
     path('logout/', views.user_logout, name='logout'),
+
+    path('document/', views.doc_download, name='document'),
 ]
