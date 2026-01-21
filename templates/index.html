@@ -156,9 +156,12 @@
 
 
                 <div class="page-actions">
-                    <button class="btn btn-outline">
-                        <i class="fas fa-file-export"></i> Export
-                    </button>
+                    <form method='POST' action="{% url 'document' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button class="btn btn-outline">
+                            <i class="fas fa-file-export"></i> Export
+                        </button>
+                    </form>
                     <button class="btn btn-primary" id="addProductBtn">
                         <i class="fas fa-plus"></i> Add Product
                     </button>
