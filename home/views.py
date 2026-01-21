@@ -10,7 +10,7 @@ from . models import VerifiCode, Employee, Product, Category, RecentScan
 from django.core.mail import send_mail
 from .forms import CategoryForm
 from django.db.models import Count
-from openpyxl import workbook
+from openpyxl import Workbook
 from django.http import HttpResponse
 
 
@@ -264,14 +264,28 @@ def home(request):
     })
 
 @login_required
+def doc_download(request):
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Product History"
+    ws.append(['barcode', 'title', 'price', 'quantity', 'sku'])
+
+    history = Product.objects.filter(user=request.user)
+    for item in history:
+        ws.append([item.barcode, item.title, item.price, item.quantity, item.sku])
+    
+    response = HttpResponse(
+        content_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = 'attachment; filename=Product_History.xlsx'
+    wb.save(response)
+    return response
+
+@login_required
 def settings(request):
     product_list = Product.objects.filter(user=request.user).count()
     return render(request, 'pages/settings.html', {'product_list': product_list})
 
-'''@login_required
-def search(request):
-    product_list = Product.objects.filter(user=request.user).count()
-    return render(request, 'pages/search.html', {'product_list':product_list})'''
 
 @login_required
 def order(request):
