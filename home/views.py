@@ -458,12 +458,12 @@ def search(request):
     results = []
     if query:
         results = Product.objects.filter(
-            title__icontains=query,
+            priority__icontains=query,
             user=request.user
         ).distinct()
     if search:
         results = Product.objects.filter(
-            barcode__icontains=search,
+            title__icontains=search,
             user=request.user
         )
     product_list = Product.objects.filter(user=request.user).count()
