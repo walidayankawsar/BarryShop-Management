@@ -34,7 +34,15 @@
             <form method="GET" action="{% url 'search' %}">
                 <div class="search-bar">
                     <i class="fas fa-search search-icon"></i>
-                    <input type="text" name="q" placeholder="Search product..." value="{{ request.GET.q }}">
+                    <input
+                        type="text" 
+                        name="src" 
+                        placeholder="Search products..." 
+                        value="{{request.GET.src}}"
+                        pattern="[A-Za-z\s]+"
+                        title="Only Letters are allowed"
+                        required
+                    >
                 </div>
             </form>
             
@@ -52,7 +60,6 @@
                             <i class="fa-solid fa-user"></i>
                         </div>
                         <h3 class="profile-name"><p>{{ user.first_name }} {{ user.last_name }}</p>
-</h3>
                         <p class="profile-email">{{ user.username }}</p>
                     </div>
                     <ul class="profile-menu">
@@ -290,34 +297,36 @@
                             <p class="popup-subtitle">Select filters to narrow down your products</p>
                             <a href="#" class="close-btn" style="text-decoration: none;">&times;</a>
                         </div>
-            
-                        <div class="filter-list">
-                            <!-- Category Filter -->
+
+                        <form method="GET" action="{% url 'search' %}">
+                            <div class="filter-list">
+                                <!-- Category Filter -->
                 
                 
-                            <!-- Stock Status -->
-                            <div class="filter-group">
-                                <label class="filter-label">Stock Status</label>
-                                <div class="checkbox-list">
-                                    <div class="checkbox-item">
-                                        <input type="radio" name="category" id="stock-instock">
-                                        <label for="stock-instock">In Stock</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="radio" name="category" id="stock-lowstock">
-                                        <label for="stock-lowstock">Low Stock</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="radio" name="category" id="stock-outstock">
-                                        <label for="stock-outstock">Out of Stock</label>
+                                <!-- Stock Status -->
+                                <div class="filter-group">
+                                    <label class="filter-label">Stock Status</label>
+                                    <div class="checkbox-list">
+                                        <div class="checkbox-item">
+                                            <input type="radio" name="q" id="stock-instock" value="in stock">
+                                            <label for="stock-instock">In Stock</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="radio" name="q" id="stock-lowstock" value="low stock">
+                                            <label for="stock-lowstock">Low Stock</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="radio" name="q" id="stock-outstock" value="out of stock">
+                                            <label for="stock-outstock">Out of Stock</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
             
-                        <div class="filter-actions">
-                            <button class="apply-btn">Apply Filters</button>
-                        </div>
+                            <div class="filter-actions">
+                                <button class="apply-btn">Apply Filters</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 
