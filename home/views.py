@@ -473,3 +473,10 @@ def search(request):
         'results':results,
         'search': search
         })
+
+
+def delete_product(request, Pid):
+    product = Product.objects.get(user=request.user, id=Pid) 
+    product.delete()
+    messages.success(request, 'Product deleted Successfully')
+    return redirect('home')
