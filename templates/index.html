@@ -375,9 +375,12 @@
                                     <button class="action-btn edit-btn">
                                         <i class="fas fa-edit"></i> Edit
                                     </button>
-                                    <button class="action-btn delete-btn">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                    <form method='POST' action='{% url 'delete' product.id %}'>
+                                        {% csrf_token %}
+                                        <button class="action-btn delete-btn">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             {% endfor %}
