@@ -175,7 +175,10 @@
                                 <td>{{ data.quantity }}</td>
                                 <td>
                                     <button class="action-btn edit-btn">Edit</button>
-                                    <button class="action-btn delete-btn">Delete</button>
+                                    <form method='POST' action="{% url 'delete' data.id %}">
+                                        {% csrf_token %}
+                                        <button class="action-btn delete-btn">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         {% endfor %}
