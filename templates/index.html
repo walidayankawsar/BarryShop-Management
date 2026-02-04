@@ -372,9 +372,12 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <button class="action-btn edit-btn">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </button>
+                                    <form method='GET' action="{% url 'edit' product.id %}">
+                                        {% csrf_token %}
+                                        <button class="action-btn edit-btn">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                    </form>
                                     <form method='POST' action="{% url 'delete' product.id %}">
                                         {% csrf_token %}
                                         <button class="action-btn delete-btn">
