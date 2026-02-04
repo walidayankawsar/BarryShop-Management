@@ -25,5 +25,6 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
 
     path('document/', views.doc_download, name='document'),
-    path('delete/<int:Pid>/', views.delete_product, name='delete')
+    path('delete/<int:Pid>/', views.delete_product, name='delete'),
+    path('edit/<int:Pid>/', views.edit_product, name='edit')
 ]
