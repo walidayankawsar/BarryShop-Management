@@ -8,7 +8,7 @@ from django.conf import settings
 from random import randint
 from . models import VerifiCode, Employee, Product, Category, RecentScan
 from django.core.mail import send_mail
-from .forms import CategoryForm
+from .forms import ProductForm
 from django.db.models import Count
 from openpyxl import Workbook
 from django.http import HttpResponse
@@ -480,3 +480,16 @@ def delete_product(request, Pid):
     product.delete()
     messages.success(request, 'Product deleted Successfully')
     return redirect('home')
+
+
+def edit_product(request, Pid):
+    product = get_object_or_404(Product, user=request.user, id=Pid)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Product Updated successfully!')
+            return redirect('home')
+    else:
+        form = ProductForm(instance=product)
+    return render(request,'pages/edit.html', {'form': form})    
