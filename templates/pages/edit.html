@@ -1,0 +1,27 @@
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <label>Barcode</label>
+    {{ form.barcode }}
+    {{ form.barcode.errors }}
+
+    <label>Name</label>
+    {{ form.title }}
+    {{ form.title.errors }}
+
+    <label>Price</label>
+    {{ form.price }}
+    {{ form.price.errors }}
+
+    <label>Quantity</label>
+    {{ form.quantity }}
+    {{ form.quantity.errors }}
+
+    <label>SKU</label>
+    {{ form.sku }}
+    {{ form.sku.errors }}
+
+    <button type="submit">Update Product</button>
+</form>
