@@ -1,27 +1,30 @@
 from django import forms
-from .models import Category
+from .models import Product
 
 
-class CategoryForm(forms.ModelForm):
+class ProductForm(forms.ModelForm):
     class Meta:
-        model = Category
-        fields = ['name', 'icon', 'description', 'color']
+        model = Product
+        fields = ['barcode', 'title', 'price', 'quantity', 'sku']
         widgets = {
-            'name' : forms.TextInput(attrs={
+            'barcode': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter category name'
+                'placeholder': 'Enter Barcode'
             }),
-            'icon': forms.TextInput(attrs={
+            'title': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter category name'
+                'placeholder': 'Enter product name'
             }),
-            'description': forms.Textarea(attrs={
+            'price': forms.NumberInput(attrs={
                 'class': 'form-control',
-                'rows': 3,
-                'placeholder': 'Enter description (optional)'
+                'placeholder': 'Enter price'
             }),
-            'color': forms.Textarea(attrs={
-                'type': 'color',
-                'class': 'form-control-color'
+            'quantity': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter quantity'
+            }),
+            'sku': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter SKU'
             }),
         }
