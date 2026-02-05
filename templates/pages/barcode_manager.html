@@ -157,9 +157,11 @@
         
                 <div class="barcode-scanner">
                     <div class="scanner-header">
-                        <button class="btn btn-outline">
-                            <i class="fas fa-history"></i> Scan History
-                        </button>
+                        <a href="{% url 'barcode' %}">
+                            <button class="btn btn-outline">
+                                <i class="fas fa-history"></i> Reload page
+                            </button>
+                        </a>
                     </div>
             
                     <div class="scanner-input">
@@ -221,7 +223,7 @@
                                         <td>{{ scan.scanned_at }}</td>
                                         <td>
                                             <button style="background: none; border: none; color: var(--primary); cursor: pointer;">
-                                                <i class="fas fa-redo"></i> Rescan
+                                                <i class="fas fa-"></i> Delete
                                             </button>
                                         </td>
                                     </tr>
