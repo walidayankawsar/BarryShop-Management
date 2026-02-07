@@ -174,19 +174,22 @@
                     </div>
                     
                     {% if results %}
-                        <div class="barcode-preview">
+                        <div class="barcode-preview" id="barcodeArea">
                             <p>Barcode Preview</p>
-                            <div class="barcode-text">{{results.barcode}}</div>
-                            <p>{{results.barcode}}</p>
+                            <div class="barcode-text" id="barcodeText">{{ results.barcode }}</div>
+                            <p>{{ results.barcode }}</p>
+
                             <div class="barcode-actions">
-                                <button class="btn btn-outline">
+                                <button class="btn btn-outline" onclick="printBarcode()">
                                     <i class="fas fa-print"></i> Print
                                 </button>
-                                <button class="btn btn-outline">
+
+                                <button class="btn btn-outline" onclick="downloadBarcode()">
                                     <i class="fas fa-download"></i> Download
                                 </button>
                             </div>
                         </div>
+
                     {% else %}
                         <div class="barcode-preview">
                             <p>Barcode Preview</p>
@@ -239,9 +242,59 @@
         </div>
     </div>
 </body>
+<script>
+function printBarcode() {
+    const content = document.getElementById("barcodeArea").innerHTML;
 
+    const win = window.open('', '', 'width=600,height=400');
+    win.document.write(`
+        <html>
+        <head>
+            <title>Print Barcode</title>
+            <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128&display=swap" rel="stylesheet">
+            <style>
+                body { text-align:center; font-family: Arial; }
+                .barcode-text {
+                    font-family: 'Libre Barcode 128';
+                    font-size: 80px;
+                }
+            </style>
+        </head>
+        <body>
+            ${content}
+        </body>
+        </html>
+    `);
+    win.document.close();
+    win.print();
+}
+
+
+function downloadBarcode() {
+    const barcode = document.getElementById("barcodeArea");
+
+    if (!barcode) {
+        alert("Barcode not found!");
+        return;
+    }
+
+    html2canvas(barcode, {
+        scale: 2,      // image quality better
+        useCORS: true
+    }).then(canvas => {
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png");
+        link.download = "barcode.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+}
+
+</script>
 <script src="{% static 'js/script.js' %}"></script>
 <script src="{% static 'js/settings.js' %}"></script>
 <script src="{% static 'js/product.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
