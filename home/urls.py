@@ -26,5 +26,6 @@ urlpatterns = [
 
     path('document/', views.doc_download, name='document'),
     path('delete/<int:Pid>/', views.delete_product, name='delete'),
-    path('edit/<int:Pid>/', views.edit_product, name='edit')
+    path('edit/<int:Pid>/', views.edit_product, name='edit'),
+    path('history/', views.barcode_history, name='history_download')
 ]
