@@ -437,6 +437,23 @@ def barcode(request):
         })
 
 @login_required
+def barcode_history(request):
+    work_book = Workbook()
+    ws = work_book.active
+    ws.title = "Barcode Scan History"
+    ws.append(['Barcode', 'Name', 'Scan Time'])
+    history = RecentScan.objects.filter(user=request.user)
+
+    for item in history:
+        ws.append([item.barcode, item.title, item.scanned_at.strftime("%d-%m-%y %I:%M%p")])
+    response = HttpResponse (content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=barcode_search_history.xlsx'
+
+    work_book.save(response)
+    return response
+
+
+@login_required
 def profile(request):
     product_list = Product.objects.filter(user=request.user).count()
     low_stock = Product.objects.filter(user=request.user, priority='low stock').count()
