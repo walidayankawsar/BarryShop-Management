@@ -132,8 +132,8 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
-EMAIL_HOST_USER = "kawsaromg@gmail.com"
-EMAIL_HOST_PASSWORD = "bdcd eizj aqtu tier"
+EMAIL_HOST_USER = "walidayaankawsar@gmail.com"
+EMAIL_HOST_PASSWORD = "aloy gxih cvgv iupw"
 
 
 
