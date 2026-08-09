@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.conf import settings
+from cloudinary_storage.storage import MediaCloudinaryStorage
+cloudinary_storage = MediaCloudinaryStorage()
+
 
 class EmployeeManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):

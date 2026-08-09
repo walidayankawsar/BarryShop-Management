@@ -183,3 +183,11 @@ cloudinary.config(
     api_key = "173987274348843",
     api_secret = "ZzeJtC_khocfyf3JQcIeXwAWR2s",
 )
+
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": "rnzvqlep",
+    "API_KEY": "173987274348843",
+    "API_SECRET": "ZzeJtC_khocfyf3JQcIeXwAWR2s",
+}
+
