@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "BarryShop_Management/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "BarryShop_Management/wsgi.py"
+    }
+  ]
+}
