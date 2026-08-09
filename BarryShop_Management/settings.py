@@ -179,7 +179,7 @@ AUTH_USER_MODEL = 'home.Employee'
 
 
 cloudinary.config(
-    cloud_name = "",
-    api_key = "",
-    api_secret = "",
+    cloud_name = "rnzvqlep",
+    api_key = "173987274348843",
+    api_secret = "ZzeJtC_khocfyf3JQcIeXwAWR2s",
 )
